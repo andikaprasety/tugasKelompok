@@ -1,0 +1,145 @@
+
+import java.util.Scanner;
+/**
+ *
+ * @author User
+ */
+// Kelas Kendaraan
+class Kendaraan {
+    public String platKendaraan;
+
+    public Kendaraan(String platKendaraan) {
+        this.platKendaraan = platKendaraan;
+    }
+
+    public void cetak() {
+        System.out.println("Plat Kendaraan: " + platKendaraan);
+    }
+}
+
+// Kelas Mobil yang merupakan turunan dari Kendaraan
+class Mobil extends Kendaraan {
+    private int lamaParkir;
+
+    public Mobil(String platKendaraan, int lamaParkir) {
+        super(platKendaraan);
+        this.lamaParkir = lamaParkir;
+    }
+
+    @Override
+    public void cetak() {
+        super.cetak();
+        System.out.println("Lama Parkir: " + lamaParkir + " jam");
+    }
+}
+
+// Kelas Motor yang merupakan turunan dari Kendaraan
+class Motor extends Kendaraan {
+    private int lamaParkir;
+
+    public Motor(String platKendaraan, int lamaParkir) {
+        super(platKendaraan);
+        this.lamaParkir = lamaParkir;
+    }
+
+    @Override
+    public void cetak() {
+        super.cetak();
+        System.out.println("Lama Parkir: " + lamaParkir + " jam");
+    }
+}
+
+// Kelas Mall
+class Mall {
+    private int jumlahKendaraan;
+    private Kendaraan[] parkiranMobil;
+    private Kendaraan[] parkiranMotor;
+
+    public Mall() {
+        jumlahKendaraan = 0;
+        parkiranMobil = new Kendaraan[100];
+        parkiranMotor = new Kendaraan[100];
+    }
+
+    public void tambahMobil(Mobil mobil) {
+        parkiranMobil[jumlahKendaraan] = mobil;
+        jumlahKendaraan++;
+    }
+
+    public void tambahMotor(Motor motor) {
+        parkiranMotor[jumlahKendaraan] = motor;
+        jumlahKendaraan++;
+    }
+
+    public void lihatParkiranMall() {
+        System.out.println("Jumlah Kendaraan: " + jumlahKendaraan);
+        System.out.println("Parkiran Mobil:");
+        for (int i = 0; i < jumlahKendaraan; i++) {
+            if (parkiranMobil[i] != null) {
+                parkiranMobil[i].cetak();
+            }
+        }
+        System.out.println("Parkiran Motor:");
+        for (int i = 0; i < jumlahKendaraan; i++) {
+            if (parkiranMotor[i] != null) {
+                parkiranMotor[i].cetak();
+            }
+        }
+    }
+}
+
+
+public class QUISPertemuan7Abrian {
+public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Mall mall = new Mall();
+
+        int pilihan = 0;
+
+        while (pilihan != 4) {
+            System.out.println("1. Tambah Mobil");
+            System.out.println("2. Tambah Motor");
+            System.out.println("3. Lihat Parkiran Mall");
+            System.out.println("4. Keluar");
+            System.out.print("Masukkan pilihan: ");
+            pilihan = input.nextInt();
+            input.nextLine(); // Clear the scanner buffer
+
+            if (pilihan == 1) {
+                // Input plat nomor dan lama parkir mobil
+                System.out.print("Masukkan Plat Nomor Mobil: ");
+                String platMobil = input.nextLine();
+                System.out.print("Masukkan Lama Parkir Mobil (jam): ");
+                int lamaParkirMobil = input.nextInt();
+                input.nextLine(); // Clear the scanner buffer
+
+                // Membuat objek Mobil dan menambahkannya ke parkiran mall
+                Mobil mobil = new Mobil(platMobil, lamaParkirMobil);
+                mall.tambahMobil(mobil);
+            } else if (pilihan == 2) {
+                // Input plat nomor dan lama parkir motor
+                System.out.print("Masukkan Plat Nomor Motor: ");
+                String platMotor = input.nextLine();
+                System.out.print("Masukkan Lama Parkir Motor (jam): ");
+                int lamaParkirMotor = input.nextInt();
+                input.nextLine(); // Clear the scanner buffer
+
+                // Membuat objek Motor dan menambahkannya ke parkiran mall
+                Motor motor = new Motor(platMotor, lamaParkirMotor);
+                mall.tambahMotor(motor);
+            } else if (pilihan == 3) {
+                // Menampilkan informasi parkiran mall
+                mall.lihatParkiranMall();
+            } else if (pilihan == 4) {
+                // Keluar dari program
+                System.out.println("Terima kasih!");
+            } else {
+                // Pilihan tidak valid
+                System.out.println("Pilihan tidak valid!");
+            }
+        }
+
+        // Menutup scanner
+        input.close();
+}
+}
